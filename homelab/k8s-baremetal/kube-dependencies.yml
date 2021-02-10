@@ -1,0 +1,57 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+   - name: add k8s apt-key
+     apt_key:
+       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+       state: present
+
+   - name: add k8s apt repository
+     apt_repository:
+      repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+
+   - name: install packages
+     apt:
+       name: "{{ item }}"
+       state: present
+       update_cache: true
+     with_items:
+       - apt-transport-https
+       - docker
+       - kubeadm
+       - kubelet
+
+   - name: create systemd docker service
+     file:
+       path: /etc/systemd/system/docker.service.d
+       state: directory
+
+   - name: Add daemon json config file
+     template:
+       src: templates/daemon.json.j2
+       dest: /etc/docker/daemon.json
+
+   # https://bugs.launchpad.net/ubuntu/+source/docker.io/+bug/1844894
+   # Failed to start docker.service: Unit docker.service is masked
+   - name: "systemctl unmask docker"
+     shell:
+       cmd: "systemctl unmask docker"
+
+   - name: enable, start docker and kubelet
+     service:
+       name: "{{ item }}"
+       state: restarted
+       enabled: yes
+     with_items:
+       - 'docker'
+       - 'kubelet'
+
+   - name: install kubectl on master only
+     apt:
+       name: kubectl
+       state: present
+       force: yes
+     when: "'masters' in group_names"
+

@@ -14,14 +14,12 @@ Referenced guides from Digital Ocean and Computing for Geeks.
 Run the following from a machine outside of the cluster.
 
 ```
-mkdir ~/kube-cluster
-cd ~/kube-cluster
-ansible-playbook -i hosts ~/kube-cluster/kube-dependencies.yml --become --ask-become-pass
-ansible-playbook -i hosts ~/kube-cluster/master.yml --become --ask-become-pass
+ansible-playbook -i hosts kube-dependencies.yml --become --ask-become-pass
+ansible-playbook -i hosts master.yml --become --ask-become-pass
 
 # make sure /root/node_joined.txt is not present if k8s worker nodes were reset using kubeadm reset
 ansible -i hosts workers -m shell -a "rm /root/node_joined.txt" --become --ask-become-pass
-ansible-playbook -i hosts ~/kube-cluster/workers.yml --become --ask-become-pass
+ansible-playbook -i hosts workers.yml --become --ask-become-pass
 
 # manage remote cluster
 kubectl config view

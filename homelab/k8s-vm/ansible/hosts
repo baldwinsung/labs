@@ -1,0 +1,12 @@
+[localhost]
+localhost
+
+[control_plane]
+k8s01
+
+[workers]
+k8s02
+k8s03
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python

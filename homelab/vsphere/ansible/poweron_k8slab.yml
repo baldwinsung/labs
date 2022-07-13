@@ -1,0 +1,19 @@
+# workon ansible5.8.0
+# ansible-playbook poweron_k8slab.yml
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: power on k8slab vms
+      community.vmware.vmware_guest_powerstate:
+        hostname: "vcsa01"
+        username: "administrator@vsphere.local"
+        password: ""
+        validate_certs: false
+        name: "{{ item }}"
+        state: powered-on
+      with_items:
+        - k8s01
+        - k8s02
+        - k8s03
+

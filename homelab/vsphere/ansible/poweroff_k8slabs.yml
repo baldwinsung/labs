@@ -1,0 +1,17 @@
+# workon ansible5.8.0
+# ansible-playbook poweroff_k8slabs.yml
+---
+- hosts: localhost
+  tasks:
+    - name: power off lab vms
+      community.vmware.vmware_guest_powerstate:
+        hostname: "vcsa01"
+        username: "administrator@vsphere.local"
+        password: ""
+        validate_certs: false
+        name: "{{ item }}"
+        state: shutdown-guest
+      with_items:
+        - k8s03
+        - k8s02
+        - k8s01

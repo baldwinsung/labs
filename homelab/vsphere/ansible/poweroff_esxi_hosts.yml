@@ -1,0 +1,22 @@
+# workon ansible5.8.0
+# ansible-playbook poweroff_esxi_hosts.yml
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: power off esxi hosts
+      community.vmware.vmware_host_powerstate:
+        hostname: "{{ item }}"
+        esxi_hostname: "{{ item }}"
+        username: "root"
+        password: ""
+        validate_certs: false
+        # ignore maintenance mode. assumes vms already powered off
+        force: yes
+        state: shutdown-host
+      with_items:
+        - esxi01
+        - esxi02
+      delegate_to: localhost
+      register: power_down
+

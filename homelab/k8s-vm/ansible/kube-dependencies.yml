@@ -27,8 +27,6 @@
         "exec-opts": ["native.cgroupdriver=systemd"]
         }
 
-   # change to loop. include apt install net-tools for ifconfig
-
    - name: install Docker
      apt:
        name: docker.io
@@ -53,14 +51,12 @@
 
    - name: install kubelet
      apt:
-       #name: kubelet=1.22.4-00
        name: kubelet
        state: present
        update_cache: true
 
    - name: install kubeadm
      apt:
-       #name: kubeadm=1.22.4-00
        name: kubeadm
        state: present
 
@@ -70,7 +66,6 @@
   tasks:
    - name: install kubectl
      apt:
-       #name: kubectl=1.22.4-00
        name: kubectl
        state: present
        force: yes

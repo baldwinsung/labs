@@ -1,0 +1,18 @@
+# workon ansible5.8.0
+# ansible-playbook poweron_vcenter.yml
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: power on vcenter vcsa01 on esxi host directly
+      community.vmware.vmware_guest_powerstate:
+        datacenter: "ha-datacenter"
+        hostname: "esxi01"
+        username: "root"
+        password: ""
+        validate_certs: false
+        name: "{{ item }}"
+        state: powered-on
+      with_items:
+        - vcsa01
+

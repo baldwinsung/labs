@@ -1,0 +1,18 @@
+# workon ansible5.8.0
+# ansible-playbook poweroff_vcenter.yml
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: power off vcenter vcsa01 on esxi host directly
+      community.vmware.vmware_guest_powerstate:
+        datacenter: "ha-datacenter"
+        hostname: "esxi01"
+        username: "root"
+        password: ""
+        validate_certs: false
+        name: "{{ item }}"
+        state: shutdown-guest
+      with_items:
+        - vcsa01
+

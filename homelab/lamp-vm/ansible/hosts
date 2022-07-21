@@ -1,0 +1,8 @@
+[localhost]
+localhost
+
+[lamp]
+lamp01
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python

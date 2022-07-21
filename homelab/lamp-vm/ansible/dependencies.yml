@@ -1,0 +1,12 @@
+---
+- hosts: all
+  remote_user: root
+  become: yes
+  tasks:
+
+   - name: install apache httpd
+     yum:
+       name: httpd
+       state: present
+       update_cache: true
+

@@ -1,0 +1,67 @@
+{
+  "builders": [
+    {
+      "CPUs": "{{user `vm-cpu-num`}}",
+      "RAM": "{{user `vm-mem-size`}}",
+      "RAM_reserve_all": false,
+      "boot_command": [
+        "<tab>",
+        "e",
+        " inst.text inst.ks=cdrom:/dev/sr1:/ks.cfg",
+        "<enter>",
+        "<wait25>",
+        "<esc>"
+      ],
+      "boot_order": "disk,cdrom",
+      "boot_wait": "10s",
+      "cd_files": [
+        "ks.cfg"
+      ],
+      "cluster": "{{user `vsphere-cluster`}}",
+      "convert_to_template": true,
+      "datacenter": "{{user `vsphere-datacenter`}}",
+      "datastore": "{{user `vsphere-datastore`}}",
+      "disk_controller_type": "pvscsi",
+      "guest_os_type": "centos8_64Guest",
+      "insecure_connection": "true",
+      "iso_paths": [
+        "{{user `iso_url`}}"
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `vsphere-network`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "notes": "Built via Packer",
+      "password": "{{user `vsphere-password`}}",
+      "ssh_password": "server",
+      "ssh_username": "root",
+      "storage": [
+        {
+          "disk_size": "{{user `vm-disk-size`}}",
+          "disk_thin_provisioned": true
+        }
+      ],
+      "type": "vsphere-iso",
+      "username": "{{user `vsphere-user`}}",
+      "vcenter_server": "{{user `vsphere-server`}}",
+      "vm_name": "{{user `vm-name`}}"
+    }
+  ],
+  "variables": {
+    "iso_url": "[datastore1] isos/CentOS-Stream-8-x86_64-20220719-dvd1.iso",
+    "vm-cpu-num": "1",
+    "vm-disk-size": "25600",
+    "vm-mem-size": "1024",
+    "vm-name": "centos8-template",
+    "vsphere-cluster": "Cluster",
+    "vsphere-datacenter": "Datacenter",
+    "vsphere-datastore": "datastore",
+    "vsphere-network": "VM Network",
+    "vsphere-password": "",
+    "vsphere-server": "vcsa01",
+    "vsphere-user": "administrator@vsphere.local"
+  }
+}
+

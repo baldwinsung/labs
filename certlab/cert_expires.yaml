@@ -1,0 +1,23 @@
+---
+
+- name: Certificate Expiration
+  hosts: localhost
+  connection: local
+  vars:
+    - cert_site: www.google.com
+
+  tasks:
+    # https://docs.ansible.com/ansible/latest/collections/community/crypto/get_certificate_module.html#examples
+    - name: Get {{ cert_site }} cert from an https port
+      community.crypto.get_certificate:
+        host: "{{ cert_site }}"
+        port: 443
+      delegate_to: localhost
+      run_once: true
+      register: cert
+
+    - name: How many days until {{ cert_site }} cert expires
+      ansible.builtin.debug:
+        msg: "{{ cert_site }} cert expires in: {{ expire_days }} days."
+      vars:
+        expire_days: "{{ (( cert.not_after | to_datetime('%Y%m%d%H%M%SZ')) - (ansible_date_time.iso8601 | to_datetime('%Y-%m-%dT%H:%M:%SZ')) ).days }}"

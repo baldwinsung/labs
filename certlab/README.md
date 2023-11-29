@@ -1,7 +1,6 @@
 # Certificate Expiration
 
-Playbook shows the numnber of days until the certificate will expire.
-
+Playbook shows the number of days until the certificate will expire.
 
 ## Usage
 

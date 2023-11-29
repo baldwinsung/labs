@@ -2,7 +2,6 @@
 
 Playbook shows the number of days until the certificate will expire.
 
-
 ## Usage
 
 Option 1: Set cert_site variable using extra vars option

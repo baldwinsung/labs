@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: labs
+  annotations:
+    github.com/project-slug: baldwinsung/labs
+spec:
+  type: other
+  lifecycle: unknown
+  owner: team-a

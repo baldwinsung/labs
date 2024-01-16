@@ -4,6 +4,8 @@ metadata:
   name: labs
   annotations:
     github.com/project-slug: baldwinsung/labs
+    backstage.io/techdocs-ref: value
+
 spec:
   type: other
   lifecycle: unknown

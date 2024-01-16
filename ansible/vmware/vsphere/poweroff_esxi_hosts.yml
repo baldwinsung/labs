@@ -8,7 +8,7 @@
       community.vmware.vmware_host_powerstate:
         hostname: "{{ item }}"
         esxi_hostname: "{{ item }}"
-        username: "root"
+        username: ""
         password: ""
         validate_certs: false
         # ignore maintenance mode. assumes vms already powered off

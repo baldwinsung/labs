@@ -6,8 +6,8 @@
   tasks:
     - name: power on k8slab vms
       community.vmware.vmware_guest_powerstate:
-        hostname: "vcsa01"
-        username: "administrator@vsphere.local"
+        hostname: ""
+        username: ""
         password: ""
         validate_certs: false
         name: "{{ item }}"

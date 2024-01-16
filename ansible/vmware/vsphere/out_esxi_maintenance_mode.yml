@@ -1,0 +1,17 @@
+# workon ansible5.8.0
+# ansible-playbook out_esxi_maintenance_mode.yml
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: out of maintenance mode
+      community.vmware.vmware_maintenancemode:
+        hostname: ""
+        username: ""
+        password: ""
+        validate_certs: false
+        esxi_hostname: "{{ item }}"
+        state: absent
+      with_items:
+        - esxi01
+        - esxi02

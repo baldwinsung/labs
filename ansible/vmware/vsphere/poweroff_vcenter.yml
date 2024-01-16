@@ -7,8 +7,8 @@
     - name: power off vcenter vcsa01 on esxi host directly
       community.vmware.vmware_guest_powerstate:
         datacenter: "ha-datacenter"
-        hostname: "esxi01"
-        username: "root"
+        hostname: ""
+        username: ""
         password: ""
         validate_certs: false
         name: "{{ item }}"

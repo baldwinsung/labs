@@ -1,0 +1,21 @@
+# workon ansible5.8.0
+# ansible-playbook put_esxi_to_maintenance_mode_vsan.yml
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: put into maintenance mode noaction - assumes no data needs to be distributed
+      community.vmware.vmware_maintenancemode:
+        hostname: ""
+        username: ""
+        password: ""
+        validate_certs: false
+        esxi_hostname: "{{ item }}"
+        vsan: noAction
+        evacuate: false
+        timeout: 3600
+        state: present
+      with_items:
+        - esxi01
+        - esxi02
+
